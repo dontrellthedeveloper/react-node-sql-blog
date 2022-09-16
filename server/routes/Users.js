@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Users } = require("../models");
 const bcrypt = require("bcrypt");
-const {validateToken} = require('../middlewares/AuthMiddleware')
-
+const { validateToken } = require("../middlewares/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
@@ -29,14 +28,14 @@ router.post("/login", async (req, res) => {
 
         const accessToken = sign(
             { username: user.username, id: user.id },
-            "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY2MzI2MjUzNCwiaWF0IjoxNjYzMjYyNTM0fQ.RoUmWEBdT36pV7Kk7OWnGj-Z_BFkElNlsJt_gVMehdE\n"
+            "importantsecret"
         );
-        res.json({token: accessToken, username: username, id: user.id});
+        res.json({ token: accessToken, username: username, id: user.id });
     });
 });
 
-router.get('/auth', (req, res) => {
+router.get("/auth", validateToken, (req, res) => {
     res.json(req.user);
-})
+});
 
 module.exports = router;
