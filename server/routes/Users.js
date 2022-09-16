@@ -31,7 +31,7 @@ router.post("/login", async (req, res) => {
             { username: user.username, id: user.id },
             "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY2MzI2MjUzNCwiaWF0IjoxNjYzMjYyNTM0fQ.RoUmWEBdT36pV7Kk7OWnGj-Z_BFkElNlsJt_gVMehdE\n"
         );
-        res.json(accessToken);
+        res.json({token: accessToken, username: username, id: user.id});
     });
 });
 
