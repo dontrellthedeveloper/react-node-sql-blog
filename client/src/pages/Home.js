@@ -1,28 +1,34 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import {Favorite, FavoriteBorder} from "@material-ui/icons";
+import { AuthContext } from "../helpers/AuthContext";
 
 function Home() {
     const [listOfPosts, setListOfPosts] = useState([]);
     const [likedPosts, setLikedPosts] = useState([]);
+    const { authState } = useContext(AuthContext);
     let navigate = useNavigate();
 
     useEffect(() => {
-        axios
-            .get("http://localhost:3001/posts", {
-                headers: { accessToken: localStorage.getItem("accessToken") },
-            })
-            .then((response) => {
-                setListOfPosts(response.data.listOfPosts);
-                setLikedPosts(
-                    response.data.likedPosts.map((like) => {
-                        return like.PostId;
-                    })
-                );
-            });
+        // if (!localStorage.getItem("accessToken")) {
+        //     navigate("/login");
+        // } else {
+            axios
+                .get("http://localhost:3001/posts", {
+                    headers: {accessToken: localStorage.getItem("accessToken")},
+                })
+                .then((response) => {
+                    setListOfPosts(response.data.listOfPosts);
+                    // setLikedPosts(
+                    //     response.data.likedPosts.map((like) => {
+                    //         return like.PostId;
+                    //     })
+                    // );
+                });
+        // }
     }, []);
 
 
@@ -82,31 +88,43 @@ function Home() {
                         </div>
                         <div className="footer">
                             <div className="username">{value.username}</div>
-                            <div className="buttons">
-                                {/*<ThumbUpAltIcon*/}
-                                {/*    onClick={() => {*/}
-                                {/*        likeAPost(value.id);*/}
-                                {/*    }}*/}
-                                {/*    className={*/}
-                                {/*        likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"*/}
-                                {/*    }*/}
-                                {/*/>*/}
+                            {!authState.status ? (
 
-                                {
-                                    likedPosts.includes(value.id) ? (
-                                        <Favorite   onClick={() => {
-                                            likeAPost(value.id);
-                                        }}/>
-                                    ) : (
-                                        <FavoriteBorder   onClick={() => {
-                                            likeAPost(value.id);
-                                        }}/>
-                                    )
-                                }
-                                {/*<Favorite/>*/}
-                                {/*<FavoriteBorder/>*/}
-                                <label> {value.Likes.length}</label>
-                            </div>
+                                <div></div>
+                            ): (
+                                <div className="buttons">
+                                    {/*<ThumbUpAltIcon*/}
+                                    {/*    onClick={() => {*/}
+                                    {/*        likeAPost(value.id);*/}
+                                    {/*    }}*/}
+                                    {/*    className={*/}
+                                    {/*        likedPosts.includes(value.id) ? "unlikeBttn" : "likeBttn"*/}
+                                    {/*    }*/}
+                                    {/*/>*/}
+
+
+
+
+                                    {/*{*/}
+                                    {/*    likedPosts.includes(value.id) ? (*/}
+                                    {/*    <Favorite   onClick={() => {*/}
+                                    {/*    likeAPost(value.id);*/}
+                                    {/*}}/>*/}
+                                    {/*    ) : (*/}
+                                    {/*    <FavoriteBorder   onClick={() => {*/}
+                                    {/*    likeAPost(value.id);*/}
+                                    {/*}}/>*/}
+                                    {/*    )*/}
+                                    {/*}*/}
+                                    {/*<label> {value.Likes.length}</label>*/}
+
+
+
+
+
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 );
