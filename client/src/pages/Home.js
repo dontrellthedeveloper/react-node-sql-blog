@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import {Favorite, FavoriteBorder} from "@material-ui/icons";
 import { AuthContext } from "../helpers/AuthContext";
@@ -87,7 +87,9 @@ function Home() {
                             {value.postText}
                         </div>
                         <div className="footer">
-                            <div className="username">{value.username}</div>
+                            <div className="username">
+                                <Link to={`/profile/${value.UserId}`}> {value.username} </Link>
+                            </div>
                             {!authState.status ? (
 
                                 <div></div>

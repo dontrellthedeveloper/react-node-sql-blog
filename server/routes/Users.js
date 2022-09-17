@@ -16,55 +16,36 @@ router.post("/", async (req, res) => {
     });
 });
 
-
-
-// router.post("/login", async (req, res) => {
-//     const { username, password } = req.body;
-//
-//     const user = await Users.findOne({ where: { username: username } });
-//
-//     if (!user) {
-//         res.json({ error: "User Doesn't Exist" });
-//     }else {
-//         bcrypt.compare(password, user.password).then((match) => {
-//             if (!match) {
-//                 res.json({ error: "Wrong Username And Password Combination" });
-//             } else {
-//                 res.json("YOU LOGGED IN!!!");
-//             }
-//         });
-//     }
-// });
-
-
-
 router.post("/login", async (req, res) => {
     const { username, password } = req.body;
 
     const user = await Users.findOne({ where: { username: username } });
 
-    if (!user) {
-         res.json({ error: "User Doesn't Exist" });
-    } else {
-        bcrypt.compare(password, user.password).then(async (match) => {
-            if (!match) {
-                res.json({ error: "Wrong Username And Password Combination" });
-            }  else {
+    if (!user) res.json({ error: "User Doesn't Exist" });
 
-                const accessToken = sign(
-                    { username: user.username, id: user.id },
-                    "importantsecret"
-                );
-                res.json({ token: accessToken, username: username, id: user.id });
-            }
+    bcrypt.compare(password, user.password).then(async (match) => {
+        if (!match) res.json({ error: "Wrong Username And Password Combination" });
 
-        });
-    }
-
+        const accessToken = sign(
+            { username: user.username, id: user.id },
+            "importantsecret"
+        );
+        res.json({ token: accessToken, username: username, id: user.id });
+    });
 });
 
 router.get("/auth", validateToken, (req, res) => {
     res.json(req.user);
+});
+
+router.get("/basicinfo/:id", async (req, res) => {
+    const id = req.params.id;
+
+    const basicInfo = await Users.findByPk(id, {
+        attributes: { exclude: ["password"] },
+    });
+
+    res.json(basicInfo);
 });
 
 module.exports = router;
