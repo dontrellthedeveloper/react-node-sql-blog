@@ -27,6 +27,8 @@ function Home() {
                     //         return like.PostId;
                     //     })
                     // );
+                    // console.log(response.data)
+                    // console.log(response.data.listOfPosts[0].image)
                 });
         // }
     }, []);
@@ -78,13 +80,21 @@ function Home() {
                         key={key}
                     >
                         <div className="title"> {value.title} </div>
+                        {/*<img*/}
+                        {/*    className="body"*/}
+                        {/*    onClick={() => {*/}
+                        {/*        navigate(`/post/${value.id}`);*/}
+                        {/*    }}*/}
+                        {/*    style={{width: '100%', height: '200px'}} src={`http://localhost:3001/${value.image}`} alt='no image'/>*/}
                         <div
                             className="body"
                              onClick={() => {
                                 navigate(`/post/${value.id}`);
                                 }}
                         >
-                            {value.postText}
+                            <img
+                                style={{width: '100%', height: '200px'}} src={`http://localhost:3001/${value.image}`} alt='no image'/>
+                            {/*{value.postText}*/}
                         </div>
                         <div className="footer">
                             <div className="username">

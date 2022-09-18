@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import {useParams, useNavigate, Link} from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 
@@ -16,6 +16,7 @@ function Post() {
     useEffect(() => {
         axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
             setPostObject(response.data);
+            // console.log(response.data)
         });
 
         axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
@@ -80,9 +81,13 @@ function Post() {
             <div className="leftSide">
                 <div className="post" id="individual">
                     <div className="title"> {postObject.title} </div>
-                    <div className="body">{postObject.postText}</div>
+                    {/*<div className="body">{postObject.postText}</div>*/}
+                    <img style={{width: '100%', height: '300px'}} src={`http://localhost:3001/${postObject.image}`} alt='no image'/>
                     <div className="footer">
-                        {postObject.username}
+                        <div className="username">
+                            <Link to={`/profile/${postObject.UserId}`}> {postObject.username} </Link>
+                        </div>
+
                         {authState.username === postObject.username && (
                             <button
                                 onClick={() => {

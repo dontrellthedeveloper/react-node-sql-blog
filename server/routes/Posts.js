@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const { Posts, Likes } = require("../models");
 
+const multer = require('multer');
+const path = require('path');
+
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 router.get("/",
@@ -29,8 +32,36 @@ router.get("/byuserId/:id", async (req, res) => {
     res.json(listOfPosts);
 });
 
-router.post("/", validateToken, async (req, res) => {
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'Images')
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+})
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: '1000000' },
+    fileFilter: (req, file, cb) => {
+        const fileTypes = /jpeg|jpg|png|gif/
+        const mimeType = fileTypes.test(file.mimetype)
+        const extname = fileTypes.test(path.extname(file.originalname))
+
+        if(mimeType && extname) {
+            return cb(null, true)
+        }
+        cb('Give proper files formate to upload')
+    }
+}).single('image')
+
+
+router.post("/", upload, validateToken, async (req, res) => {
+
+
     const post = req.body;
+    post.image = req.file.path;
     post.username = req.user.username;
     post.UserId = req.user.id;
     await Posts.create(post);
@@ -47,5 +78,9 @@ router.delete("/:postId", validateToken, async (req, res) => {
 
     res.json("DELETED SUCCESSFULLY");
 });
+
+
+
+
 
 module.exports = router;

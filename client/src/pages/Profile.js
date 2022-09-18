@@ -7,6 +7,7 @@ function Profile() {
     let navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [listOfPosts, setListOfPosts] = useState([]);
+    const [postImage, setPostImage] = useState('')
 
     useEffect(() => {
         axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
@@ -15,6 +16,7 @@ function Profile() {
 
         axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
             setListOfPosts(response.data);
+            setPostImage(response.data.image)
         });
     }, []);
 
@@ -35,7 +37,8 @@ function Profile() {
                                     navigate(`/post/${value.id}`);
                                 }}
                             >
-                                {value.postText}
+                                <img style={{width: '100%', height: '200px'}} src={`http://localhost:3001/${value.image}`} alt='no image'/>
+                                {/*{value.postText}*/}
                             </div>
                             <div className="footer">
                                 <div className="username">{value.username}</div>
