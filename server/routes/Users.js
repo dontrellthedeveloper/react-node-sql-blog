@@ -1,18 +1,58 @@
 const express = require("express");
 const router = express.Router();
-const { Users } = require("../models");
+const { Users, Posts, Likes} = require("../models");
 const bcrypt = require("bcrypt");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
+const path = require("path");
 
-router.post("/", async (req, res) => {
-    const { username, password } = req.body;
+const multer = require('multer');
+
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'Images')
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname))
+    }
+})
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: '1000000' },
+    fileFilter: (req, file, cb) => {
+        const fileTypes = /jpeg|jpg|png|gif/
+        const mimeType = fileTypes.test(file.mimetype)
+        const extname = fileTypes.test(path.extname(file.originalname))
+
+        if(mimeType && extname) {
+            return cb(null, true)
+        }
+        cb('Give proper files formate to upload')
+    }
+}).single('image')
+
+
+router.post("/", upload ,async (req, res) => {
+    // const { username, password } = req.body;
+    const user = req.body;
+    const username = req.body.username;
+    const password = req.body.password;
+    const image = req.file.path;
+    user.image = req.file.path;
+    console.log(user)
+    // console.log(image)
+    // console.log(user)
+
+
     bcrypt.hash(password, 10).then((hash) => {
         Users.create({
             username: username,
             password: hash,
+            image: image
         });
-        res.json("SUCCESS");
+        res.json(user);
     });
 });
 
@@ -49,8 +89,23 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/auth", validateToken, (req, res) => {
-    res.json(req.user);
+    const user = req.user;
+    res.json(user);
+    // console.log(user)
 });
+
+
+router.get("/",
+    // validateToken,
+    async (req, res) => {
+        const listOfUsers = await Users.findAll();
+        // console.log(listOfUsers)
+        // const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
+        // res.json({ listOfUsers: listOfUsers});
+        res.json(listOfUsers);
+    });
+
+
 
 router.get("/basicinfo/:id", async (req, res) => {
     const id = req.params.id;

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { Posts, Likes } = require("../models");
+const { Posts, Likes, Users } = require("../models");
 
 const multer = require('multer');
 const path = require('path');
@@ -12,6 +12,7 @@ router.get("/",
     async (req, res) => {
     const listOfPosts = await Posts.findAll({ include: [Likes] });
     // const likedPosts = await Likes.findAll({ where: { UserId: req.user.id } });
+    //     console.log(listOfPosts)
     res.json({ listOfPosts: listOfPosts,
         // likedPosts: likedPosts
     });
@@ -64,6 +65,9 @@ router.post("/", upload, validateToken, async (req, res) => {
     post.image = req.file.path;
     post.username = req.user.username;
     post.UserId = req.user.id;
+    post.userImage = req.user.image;
+    // console.log(req.user)
+
     await Posts.create(post);
     res.json(post);
 });
