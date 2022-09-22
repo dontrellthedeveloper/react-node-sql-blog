@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useContext} from "react";
 import { Link } from "react-router-dom";
 // nodejs library that concatenates strings
 import classnames from "classnames";
@@ -21,10 +21,14 @@ import {
 } from "reactstrap";
 // core components
 
+import { AuthContext } from "../../helpers/AuthContext";
+
 function ColorNavbar() {
     const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
     const [bodyClick, setBodyClick] = React.useState(false);
     const [collapseOpen, setCollapseOpen] = React.useState(false);
+
+    const { authState, setAuthState } = useContext(AuthContext);
 
     useEffect(() => {
         let headroom = new Headroom(document.getElementById("navbar-main"));
@@ -48,6 +52,13 @@ function ColorNavbar() {
             window.removeEventListener("scroll", updateNavbarColor);
         };
     });
+
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        setAuthState({ username: "", id: 0, status: false });
+    };
+
     return (
         <>
             {bodyClick ? (
@@ -88,26 +99,49 @@ function ColorNavbar() {
 
                     <Collapse navbar isOpen={collapseOpen}>
                         <Nav className="ml-auto" navbar>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle className="mr-2" color="default" nav to="/login-page" tag={Link}>
-                                    Login
-                                </DropdownToggle>
-                            </UncontrolledDropdown>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle className="mr-2" color="default" nav to="/register-page" tag={Link}>
-                                    Register
-                                </DropdownToggle>
-                            </UncontrolledDropdown>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle className="mr-2" color="default" nav to="/create-post" tag={Link}>
-                                    Create Post
-                                </DropdownToggle>
-                            </UncontrolledDropdown>
-                            <UncontrolledDropdown nav inNavbar>
-                                <DropdownToggle className="mr-2" color="default"  nav>
-                                    Logout
-                                </DropdownToggle>
-                            </UncontrolledDropdown>
+                            {!authState.status ? (
+                                <>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle className="mr-2" color="default" nav to="/login" tag={Link}>
+                                            Login
+                                        </DropdownToggle>
+                                    </UncontrolledDropdown>
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle className="mr-2" color="default" nav to="/register" tag={Link}>
+                                            Register
+                                        </DropdownToggle>
+                                    </UncontrolledDropdown>
+                                </>
+                            ):(
+                                <>
+                                    {/*<UncontrolledDropdown nav inNavbar>*/}
+                                    {/*    <DropdownToggle className="mr-2" color="default" nav to="/create-post" tag={Link}>*/}
+                                    {/*        Create Post*/}
+                                    {/*    </DropdownToggle>*/}
+                                    {/*</UncontrolledDropdown>*/}
+                                    <UncontrolledDropdown nav inNavbar>
+                                        <DropdownToggle className="mr-2" color="default" caret nav>
+                                            {authState.username}
+                                        </DropdownToggle>
+                                        <DropdownMenu className="dropdown-danger" right>
+                                            <DropdownItem to={`/profile/${authState.id}`} tag={Link}>
+                                                <i className="nc-icon nc-bank" />
+                                                Profile
+                                            </DropdownItem>
+                                            <DropdownItem to="/create-post" tag={Link}>
+                                                <i className="nc-icon nc-bank" />
+                                                Create Post
+                                            </DropdownItem>
+
+                                            <DropdownItem onClick={logout}>
+                                                <i className="nc-icon nc-bank" />
+                                                Logout
+                                            </DropdownItem>
+                                        </DropdownMenu>
+
+                                    </UncontrolledDropdown>
+                                </>
+                            )}
                         </Nav>
                     </Collapse>
                 </Container>

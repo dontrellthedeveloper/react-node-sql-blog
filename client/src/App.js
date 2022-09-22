@@ -1,11 +1,13 @@
 import "./App.css";
 
+
 import {BrowserRouter as Router, Routes, Route, Link} from "react-router-dom";
 import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
+
 import {AuthContext} from "./helpers/AuthContext";
 import {useState, useEffect} from "react";
 import axios from 'axios'

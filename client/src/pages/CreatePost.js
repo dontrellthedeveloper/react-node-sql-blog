@@ -70,9 +70,11 @@ function CreatePost() {
             />
             <label>Upload Image:</label>
 
-            <input name="image" type="file" size='lg' onChange={(event) => {
+            <input name="image" type="file" size='lg'
+                   onChange={(event) => {
                 setImage(event.target.files[0]);
-            }} />
+            }}
+            />
 
             <label>Body:</label>
             <input
