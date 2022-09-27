@@ -1,10 +1,11 @@
-const express = require("express");
-const { Posts, Likes } = require("../models");
-const multer = require("multer");
+const { Users, Posts, Likes} = require("../models");
+const bcrypt = require("bcryptjs");
+const { sign } = require("jsonwebtoken");
 const path = require("path");
+const multer = require("multer");
 
 
-// Image Storage
+// Post Image Storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'Images/')
@@ -14,7 +15,7 @@ const storage = multer.diskStorage({
     }
 })
 
-// Image Upload
+// Post Image Upload
 const upload = multer({
     storage: storage,
     limits: { fileSize: '10000000' },
@@ -31,21 +32,33 @@ const upload = multer({
 }).single('image')
 
 
-
-
+// Get All Posts
 const getAllPosts = async (req, res) => {
-
+    const listOfPosts = await Posts.findAll();
+    res.json({
+        listOfPosts: listOfPosts,
+    });
 }
 
-const userPost = async (req, res) => {
-
+// Get User Post
+const getUserPost = async (req, res) => {
+    const id = req.params.id;
+    const post = await Posts.findByPk(id);
+    res.json(post);
 }
 
-const userInfo = async (req, res) => {
-
+// Get All User Posts
+const getAllUserPosts = async (req, res) => {
+    const id = req.params.id;
+    const listOfPosts = await Posts.findAll({
+        where: { UserId: id },
+        include: [Likes],
+    });
+    res.json(listOfPosts);
 }
 
 
+// Add Post
 const addPost = async (req, res) => {
     const post = {
         title: req.body.title,
@@ -59,20 +72,24 @@ const addPost = async (req, res) => {
     res.json(post);
 }
 
-
-
+// Delete Post
 const deletePost = async (req, res) => {
+    const postId = req.params.postId;
+    await Posts.destroy({
+        where: {
+            id: postId,
+        },
+    });
 
+    res.json("DELETED SUCCESSFULLY");
 }
-
-
 
 
 
 module.exports = {
     getAllPosts,
-    userPost,
-    userInfo,
+    getUserPost,
+    getAllUserPosts,
     addPost,
     deletePost,
     upload
