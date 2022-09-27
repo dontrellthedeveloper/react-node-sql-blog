@@ -24,6 +24,7 @@ router.get("/byId/:id", async (req, res) => {
     res.json(post);
 });
 
+
 router.get("/byuserId/:id", async (req, res) => {
     const id = req.params.id;
     const listOfPosts = await Posts.findAll({

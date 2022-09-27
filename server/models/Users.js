@@ -1,11 +1,11 @@
-// const SequelizeSlugify = require("sequelize-slugify");
+const SequelizeSlugify = require("sequelize-slugify");
 
 module.exports = (sequelize, DataTypes) => {
 
     const Users = sequelize.define("Users", {
         username: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
         slug: {
             type: DataTypes.STRING,
@@ -33,11 +33,11 @@ module.exports = (sequelize, DataTypes) => {
     });
 
 
-    // SequelizeSlugify.slugifyModel(Users, {
-    //     source: ['username'],
-    //     slugOptions: { lower: true },
-    //     column: 'slug',
-    // });
+    SequelizeSlugify.slugifyModel(Users, {
+        source: ['username'],
+        slugOptions: { lower: true },
+        column: 'slug',
+    });
 
 
 

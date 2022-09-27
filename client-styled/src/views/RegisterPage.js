@@ -47,7 +47,6 @@ function RegisterPage() {
   });
 
   const onSubmit = (data) => {
-    // axios.post("http://localhost:3001/auth", data).then(() => {
     axios.post("https://node-react-sql-blog-api.herokuapp.com/auth", data).then(() => {
       console.log(data);
       history.push("/login");

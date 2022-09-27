@@ -78,7 +78,7 @@ function Homepage() {
                                                     <img
                                                         alt="..."
                                                         className="img img-raised"
-                                                        src={`http://localhost:3001/${value.image}`}
+                                                        src={`https://node-react-sql-blog-api.herokuapp.com/${value.image}`}
                                                     />
                                                 </div>
                                                 <CardBody>

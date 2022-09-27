@@ -3,22 +3,8 @@ const { Posts, Likes } = require("../models");
 const multer = require("multer");
 const path = require("path");
 
-const addPost = async (req, res) => {
 
-    const post = {
-        title: req.body.title,
-        postText: req.body.postText,
-        image: req.file.path
-    }
-    // const post = req.body;
-    post.username = req.user.username;
-    post.UserId = req.user.id;
-    await Posts.create(post);
-    res.json(post);
-
-}
-
-
+// Image Storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'Images/')
@@ -28,6 +14,7 @@ const storage = multer.diskStorage({
     }
 })
 
+// Image Upload
 const upload = multer({
     storage: storage,
     limits: { fileSize: '10000000' },
@@ -46,8 +33,47 @@ const upload = multer({
 
 
 
-module.exports = {
-    addPost,
-    upload
+const getAllPosts = async (req, res) => {
 
+}
+
+const userPost = async (req, res) => {
+
+}
+
+const userInfo = async (req, res) => {
+
+}
+
+
+const addPost = async (req, res) => {
+    const post = {
+        title: req.body.title,
+        postText: req.body.postText,
+        image: req.file.path
+    }
+    // const post = req.body;
+    post.username = req.user.username;
+    post.UserId = req.user.id;
+    await Posts.create(post);
+    res.json(post);
+}
+
+
+
+const deletePost = async (req, res) => {
+
+}
+
+
+
+
+
+module.exports = {
+    getAllPosts,
+    userPost,
+    userInfo,
+    addPost,
+    deletePost,
+    upload
 }

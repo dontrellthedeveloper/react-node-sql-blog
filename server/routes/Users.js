@@ -35,24 +35,23 @@ const upload = multer({
 
 
 router.post("/", upload ,async (req, res) => {
-    // const { username, password } = req.body;
-    const user = req.body;
-    const username = req.body.username;
-    const password = req.body.password;
-    const image = req.file.path;
-    user.image = req.file.path;
-    console.log(user)
+    const { username, password } = req.body;
+    // const user = req.body;
+    // const username = req.body.username;
+    // const password = req.body.password;
+    // const image = req.file.path;
+    // user.image = req.file.path;
+    // console.log(user)
     // console.log(image)
     // console.log(user)
-
 
     bcrypt.hash(password, 10).then((hash) => {
         Users.create({
             username: username,
             password: hash,
-            image: image
+            // image: image
         });
-        res.json(user);
+        res.json("SUCCESS");
     });
 });
 

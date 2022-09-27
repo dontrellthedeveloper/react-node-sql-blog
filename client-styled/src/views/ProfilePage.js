@@ -48,7 +48,6 @@ function ProfilePage() {
     };
 
     useEffect(() => {
-        // axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
         axios.get(`https://node-react-sql-blog-api.herokuapp.com/auth/basicinfo/${id}`).then((response) => {
             setUsername(response.data.username);
             setJobTitle(response.data.jobTitle)
@@ -56,7 +55,6 @@ function ProfilePage() {
             setUserImage(response.data.image)
         });
 
-        // axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
         axios.get(`https://node-react-sql-blog-api.herokuapp.com/posts/byuserId/${id}`).then((response) => {
             setListOfPosts(response.data);
             setPostImage(response.data.image)
@@ -170,7 +168,7 @@ function ProfilePage() {
                                                         alt="..."
                                                         className="img img-raised"
                                                         // src={require("assets/img/sections/bruno-abatti.jpg")}
-                                                        src={`http://localhost:3001/${value.image}`}
+                                                        src={`https://node-react-sql-blog-api.herokuapp.com/${value.image}`}
                                                     />
                                             </div>
                                             <CardBody>

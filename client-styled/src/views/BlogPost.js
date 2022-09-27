@@ -36,21 +36,18 @@ function BlogPost() {
 
   useEffect(() => {
 
-    // axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
     axios.get(`https://node-react-sql-blog-api.herokuapp.com/posts/byId/${id}`).then((response) => {
       setPostObject(response.data);
       // console.log(response.data)
     });
 
 
-    // axios.get('http://localhost:3001/auth').then((response) => {
     axios.get('https://node-react-sql-blog-api.herokuapp.com/auth').then((response) => {
       setListOfUsers(response.data);
       console.log(response.data)
     });
 
 
-    // axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
     axios.get(`https://node-react-sql-blog-api.herokuapp.com/comments/${id}`).then((response) => {
       setComments(response.data);
     });
@@ -60,7 +57,6 @@ function BlogPost() {
   const addComment = () => {
     axios
         .post(
-            // "http://localhost:3001/comments",
             "https://node-react-sql-blog-api.herokuapp.com/comments",
             {
               commentBody: newComment,
@@ -89,7 +85,6 @@ function BlogPost() {
 
   const deleteComment = (id) => {
     axios
-        // .delete(`http://localhost:3001/comments/${id}`, {
         .delete(`https://node-react-sql-blog-api.herokuapp.com/comments/${id}`, {
           headers: { accessToken: localStorage.getItem("accessToken") },
         })
@@ -104,7 +99,6 @@ function BlogPost() {
 
   const deletePost = (id) => {
     axios
-        // .delete(`http://localhost:3001/posts/${id}`, {
         .delete(`https://node-react-sql-blog-api.herokuapp.com/posts/${id}`, {
           headers: { accessToken: localStorage.getItem("accessToken") },
         })
@@ -161,7 +155,7 @@ function BlogPost() {
                     <Card
                       data-radius="none"
                     >
-                      <img src={`http://localhost:3001/${postObject.image}`} alt=""/>
+                      <img src={`https://node-react-sql-blog-api.herokuapp.com/${postObject.image}`} alt=""/>
                     </Card>
                     <p className="image-thumb text-center">
                       Posted by {postObject.username}
