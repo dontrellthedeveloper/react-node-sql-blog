@@ -74,14 +74,18 @@ const addPost = async (req, res) => {
 
 // Delete Post
 const deletePost = async (req, res) => {
-    const postId = req.params.postId;
-    await Posts.destroy({
-        where: {
-            id: postId,
-        },
-    });
+    try {
+        const postId = req.params.postId;
+        await Posts.destroy({
+            where: {
+                id: postId,
+            },
+        });
+        res.json("DELETED SUCCESSFULLY");
+    } catch (e) {
+        console.log("error", e.message)
+    }
 
-    res.json("DELETED SUCCESSFULLY");
 }
 
 

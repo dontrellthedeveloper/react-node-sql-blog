@@ -47,7 +47,7 @@ function RegisterPage() {
   });
 
   const onSubmit = (data) => {
-    axios.post("https://node-react-sql-blog-api.herokuapp.com/auth", data).then(() => {
+    axios.post(`https://node-react-sql-blog-api.herokuapp.com/auth`, data).then(() => {
       console.log(data);
       history.push("/login");
     });
@@ -76,9 +76,7 @@ function RegisterPage() {
                   <div className="description">
                     <h3>We've got you covered</h3>
                     <p>
-                      Larger, yet dramatically thinner. More powerful, but
-                      remarkably power efficient. Everything you need in a
-                      single case.
+                      Join the best creator space online
                     </p>
                   </div>
                 </div>
@@ -89,7 +87,7 @@ function RegisterPage() {
                   <div className="description">
                     <h3>Clear Directions</h3>
                     <p>
-                      Efficiently unleash cross-media information without
+                      Cross-media platform with clear instructions. information without
                       cross-media value. Quickly maximize timely deliverables
                       for real-time schemas.
                     </p>
@@ -114,17 +112,7 @@ function RegisterPage() {
                   <CardTitle className="text-center" tag="h3">
                     Register
                   </CardTitle>
-                  {/*<div className="social">*/}
-                  {/*  <Button className="btn-just-icon mr-1" color="facebook">*/}
-                  {/*    <i className="fa fa-facebook" />*/}
-                  {/*  </Button>*/}
-                  {/*  <Button className="btn-just-icon mr-1" color="google">*/}
-                  {/*    <i className="fa fa-google" />*/}
-                  {/*  </Button>*/}
-                  {/*  <Button className="btn-just-icon" color="twitter">*/}
-                  {/*    <i className="fa fa-twitter" />*/}
-                  {/*  </Button>*/}
-                  {/*</div>*/}
+
                   <div className="division">
                     <div className="line l" />
                     <span>today</span>
@@ -139,8 +127,7 @@ function RegisterPage() {
                   >
 
                     <Form className="register-form">
-                      {/*<Input placeholder="Email" type="text" />*/}
-                      {/*<Input placeholder="Password" type="password" />*/}
+
                       <ErrorMessage name="username" component="span" />
                       <Field
                           autoComplete="off"
@@ -158,7 +145,7 @@ function RegisterPage() {
                           placeholder="Password..."
                           className='form-control'
                       />
-                      {/*<Input placeholder="Confirm Password" type="password" />*/}
+
                       <Button block className="btn-round" color="default" type='submit'>
                         Register
                       </Button>

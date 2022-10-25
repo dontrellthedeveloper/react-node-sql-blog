@@ -35,14 +35,13 @@ function BlogPost() {
 
 
   useEffect(() => {
-
     axios.get(`https://node-react-sql-blog-api.herokuapp.com/posts/byId/${id}`).then((response) => {
       setPostObject(response.data);
       // console.log(response.data)
     });
 
 
-    axios.get('https://node-react-sql-blog-api.herokuapp.com/auth').then((response) => {
+    axios.get(`https://node-react-sql-blog-api.herokuapp.com/auth`).then((response) => {
       setListOfUsers(response.data);
       console.log(response.data)
     });
@@ -57,7 +56,7 @@ function BlogPost() {
   const addComment = () => {
     axios
         .post(
-            "https://node-react-sql-blog-api.herokuapp.com/comments",
+            `https://node-react-sql-blog-api.herokuapp.com/comments`,
             {
               commentBody: newComment,
               PostId: id,
@@ -135,23 +134,18 @@ function BlogPost() {
                     <Badge className="main-tag" color="warning">
                       Trending
                     </Badge>
-                    <a href="javascrip: void(0);">
+                    <a href="javascript: void(0);">
                       <h3 className="title">
-                        {/*Make Somebody Nervous Before You Die*/}
                         {postObject.title}
                       </h3>
                     </a>
                     <h6 className="title-uppercase">
-                      {/*October 10, 2016*/}
-                      {/*{postdate.toDateString()}*/}
                       {postdate.toLocaleDateString()}
-                      {/*{postdate.toLocaleString()}*/}
-                      {/*{postdate.toLocaleTimeString()}*/}
                     </h6>
                   </div>
                 </Col>
                 <Col className="ml-auto mr-auto" md="8">
-                  <a href="javascrip: void(0);">
+                  <a href="javascript: void(0);">
                     <Card
                       data-radius="none"
                     >
@@ -189,20 +183,7 @@ function BlogPost() {
                     <p>
                       {postObject.postText}
                     </p>
-                    {/*<p>*/}
-                    {/*  You won’t find many concepts that are very useful or*/}
-                    {/*  important if you insist on having a worldview that’s void*/}
-                    {/*  of controversy, invulnerable to criticism, and incapable*/}
-                    {/*  of making others feel confused.*/}
-                    {/*</p>*/}
-                    {/*<p>*/}
-                    {/*  Interesting ideas are a reward for not being afraid to*/}
-                    {/*  have unconventional beliefs. You can’t grow if you’re*/}
-                    {/*  never willing to turn your back on the status quo. You*/}
-                    {/*  can’t expand if you’re never willing to take an unorthodox*/}
-                    {/*  stand. You can’t have a beautiful mind if you’re never*/}
-                    {/*  willing to leave the crowd behind.*/}
-                    {/*</p>*/}
+
 
                   </div>
                   <br />
@@ -240,23 +221,7 @@ function BlogPost() {
                   <Container>
                     <Row style={{display: 'block'}}>
                       <Media>
-                        {/*<a*/}
-                        {/*  className="pull-left"*/}
-                        {/*  href="views/BlogPost#pablo"*/}
-                        {/*  onClick={(e) => e.preventDefault()}*/}
-                        {/*>*/}
-                        {/*<Link to={`/profile/${postObject.UserId}`}>*/}
-                        {/*  <div className="avatar big-avatar">*/}
-                        {/*    <Media*/}
-                        {/*      alt="..."*/}
-                        {/*      object*/}
-                        {/*      // src={require("assets/img/faces/kaci-baum-2.jpg")}*/}
-                        {/*      // src={require("assets/img/faces/default_profile_pic.jpeg")}*/}
-                        {/*      src={`http://localhost:3001/${postObject.image}`}*/}
-                        {/*    />*/}
-                        {/*  </div>*/}
-                        {/*</Link>*/}
-                        {/*</a>*/}
+
                         <Media body>
                           <Media heading>Posted by
                             {' '}
@@ -267,23 +232,6 @@ function BlogPost() {
                             {postObject.username}
                             </Link>
                           </Media>
-                          <div className="pull-right">
-                            {/*<Button*/}
-                            {/*  className="btn-round"*/}
-                            {/*  color="default"*/}
-                            {/*  href="#pablo"*/}
-                            {/*  onClick={(e) => e.preventDefault()}*/}
-                            {/*>*/}
-                            {/*  <i className="fa fa-reply mr-1" />*/}
-                            {/*  Follow*/}
-                            {/*</Button>*/}
-                          </div>
-                          {/*<p>*/}
-                          {/*  Hello guys, nice to have you on the platform! There*/}
-                          {/*  will be a lot of great stuff coming soon. We will*/}
-                          {/*  keep you posted for the latest news.*/}
-                          {/*</p>*/}
-                          {/*<p>Don't forget, You're Awesome!</p>*/}
                         </Media>
                       </Media>
                     </Row>
@@ -301,7 +249,6 @@ function BlogPost() {
                         ):(
                           <Col md="12" sm="12">
                             <FormGroup>
-                              {/*<h6>Add Comment <span className="icon-danger">*</span></h6>*/}
                               <Input
                                   className="textarea"
                                   value={newComment}
@@ -336,18 +283,6 @@ function BlogPost() {
 
                             <Media>
 
-                              {/*<Link to={`/profile/${comment.userId}`}>*/}
-                              {/*  <div className="avatar">*/}
-                              {/*    <Media*/}
-                              {/*        alt="..."*/}
-                              {/*        object*/}
-                              {/*        // src={require("assets/img/faces/clem-onojeghuo-3.jpg")}*/}
-                              {/*        src={require("assets/img/faces/default_profile_pic.jpeg")}*/}
-                              {/*    />*/}
-                              {/*  </div>*/}
-                              {/*</Link>*/}
-
-
 
                               <Media body>
                                 <Media heading tag="h5">
@@ -357,18 +292,16 @@ function BlogPost() {
                                   >
                                     {comment.username}
                                   </Link>
-                                  {/*{comment.username}*/}
-                                  {/*John Lincoln*/}
+
                                 </Media>
                                 <div className="pull-right">
-                                  {/*<h6 className="text-muted">Sep 11, 11:54 AM</h6>*/}
+
 
                                   <h6 className="text-muted">{new Date(comment.createdAt).toLocaleString()}</h6>
 
                                   {authState.username === comment.username && (
                                   <Button
                                       className="btn-link pull-right"
-                                      // color="info"
                                       style={{color: '#f5593d'}}
                                       onClick={() => {
                                         deleteComment(comment.id);
@@ -383,9 +316,6 @@ function BlogPost() {
                                 </div>
                                 <p>
                                   {comment.commentBody}
-                                  {/*Hello guys, nice to have you on the platform!*/}
-                                  {/*There will be a lot of great stuff coming soon. We*/}
-                                  {/*will keep you posted for the latest news.*/}
                                 </p>
                                 {/* end media */}
                               </Media>

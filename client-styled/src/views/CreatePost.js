@@ -32,7 +32,7 @@ function CreatePost() {
 
 
     axios
-        .post("https://node-react-sql-blog-api.herokuapp.com/posts", formData, {
+        .post(`https://node-react-sql-blog-api.herokuapp.com/posts`, formData, {
           headers: { accessToken: localStorage.getItem("accessToken") },
         }).then((response) => {
       history.push(`/`);

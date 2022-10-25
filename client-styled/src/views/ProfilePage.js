@@ -87,13 +87,12 @@ function ProfilePage() {
                   <div className="fileinput-new img-no-padding">
                     <img
                       alt="..."
-                      src={`http://localhost:3001/${userImage}`}
+                      src={`https://node-react-sql-blog-api.herokuapp.com/${userImage}`}
                     />
                   </div>
                   <div className="name">
                     <h4 className="title text-center">
                         {username} <br />
-                      {/*<small>Music Producer</small>*/}
                       <small>{jobTitle}</small>
                     </h4>
                   </div>
@@ -117,31 +116,28 @@ function ProfilePage() {
               <div className="nav-tabs-wrapper">
                 <Nav role="tablist" tabs>
                   <NavItem>
-                    {/*<NavLink*/}
-                    {/*  className={activeTab === "1" ? "active" : ""}*/}
-                    {/*  onClick={() => {*/}
-                    {/*    toggle("1");*/}
-                    {/*  }}*/}
-                    {/*>*/}
-                    {/*  Follows*/}
-                    {/*</NavLink>*/}
+                    <NavLink
+                      className={activeTab === "1" ? "active" : ""}
+                      onClick={() => {
+                        toggle("1");
+                      }}
+                    >
+                      Follows
+                    </NavLink>
                   </NavItem>
                   <NavItem>
-                    {/*<NavLink*/}
-                    {/*  className={activeTab === "2" ? "active" : ""}*/}
-                    {/*  onClick={() => {*/}
-                    {/*    toggle("2");*/}
-                    {/*  }}*/}
-                    {/*>*/}
-                    {/*  Following*/}
-                    {/*</NavLink>*/}
+                    <NavLink
+                      className={activeTab === "2" ? "active" : ""}
+                      onClick={() => {
+                        toggle("2");
+                      }}
+                    >
+                      Following
+                    </NavLink>
                   </NavItem>
                 </Nav>
               </div>
             </div>
-
-
-
 
 
             <Container>
@@ -167,37 +163,28 @@ function ProfilePage() {
                                                     <img
                                                         alt="..."
                                                         className="img img-raised"
-                                                        // src={require("assets/img/sections/bruno-abatti.jpg")}
                                                         src={`https://node-react-sql-blog-api.herokuapp.com/${value.image}`}
                                                     />
                                             </div>
                                             <CardBody>
-                                                {/*<div className="card-category">*/}
-                                                {/*    <Badge className="main-tag" color="primary">*/}
-                                                {/*        Featured*/}
-                                                {/*    </Badge>*/}
-                                                {/*</div>*/}
-                                                <a href="javascrip: void(0);">
+                                                <a href="javascript: void(0);">
                                                     <CardTitle tag="h3">
-                                                        {/*My Review of Pitchfork’s ‘Indie 500’ Album Review*/}
                                                         {value.title}
                                                     </CardTitle>
                                                 </a>
                                                 <div className="card-description">
                                                     <p>
-                                                        {/*In the first sentence of Pitchfork’s review of my*/}
-                                                        {/*collaborative project with 9th Wonder, INDIE 500, a*/}
-                                                        {/*reviewer who is associated with music review site*/}
-                                                        {/*rhapsody.com writes about how I criticize and then*/}
-                                                        {/*distance myself from “celebrity straw men” with the*/}
-                                                        {/*line “celebrities be making money...*/}
                                                         {value.postText}
                                                     </p>
                                                 </div>
                                             </CardBody>
-                                            <Button className="btn-round" color="danger" size="sm"                                               onClick={() => {
+                                            <Button
+                                                className="btn-round"
+                                                color="danger"
+                                                size="sm"
+                                                onClick={() => {
                                                 history.push(`/blog-post/${value.id}`);
-                                            }}>
+                                                }}>
                                                 Read more
                                             </Button>
                                         </Card>
@@ -208,108 +195,9 @@ function ProfilePage() {
                             <br />
                             <br />
                         </>
-
                     );
                 })}
-
-
-
-                {/*<div className="article">*/}
-                {/*    <Row>*/}
-                {/*        <Col className="ml-auto mr-auto" md="8">*/}
-                {/*            <Card className="card-blog card-plain text-center">*/}
-                {/*                <div className="card-image">*/}
-                {/*                    <a href="views/ProfilePage#pablo" onClick={(e) => e.preventDefault()}>*/}
-                {/*                        <img*/}
-                {/*                            alt="..."*/}
-                {/*                            className="img img-raised"*/}
-                {/*                            src={require("assets/img/sections/federico-beccari.jpg")}*/}
-                {/*                        />*/}
-                {/*                    </a>*/}
-                {/*                </div>*/}
-                {/*                <CardBody>*/}
-                {/*                    <div className="card-category">*/}
-                {/*                        <Badge className="main-tag" color="info">*/}
-                {/*                            Popular*/}
-                {/*                        </Badge>*/}
-                {/*                    </div>*/}
-                {/*                    <a href="javascrip: void(0);">*/}
-                {/*                        <CardTitle tag="h3">*/}
-                {/*                            You Should Get Excited About Virtual Reality.*/}
-                {/*                        </CardTitle>*/}
-                {/*                        <h6 className="title-uppercase">October 20, 2016</h6>*/}
-                {/*                    </a>*/}
-                {/*                    <div className="card-description">*/}
-                {/*                        <p>*/}
-                {/*                            In the first sentence of Pitchfork’s review of my*/}
-                {/*                            collaborative project with 9th Wonder, INDIE 500, a*/}
-                {/*                            reviewer who is associated with music review site*/}
-                {/*                            rhapsody.com writes about how I criticize and then*/}
-                {/*                            distance myself from “celebrity straw men” with the*/}
-                {/*                            line “celebrities be making money...*/}
-                {/*                        </p>*/}
-                {/*                    </div>*/}
-                {/*                </CardBody>*/}
-                {/*                <Button className="btn-round" color="danger" size="sm">*/}
-                {/*                    Read more*/}
-                {/*                </Button>*/}
-                {/*            </Card>*/}
-                {/*        </Col>*/}
-                {/*    </Row>*/}
-                {/*</div>*/}
-                {/*<hr />*/}
-                {/*<br />*/}
-                {/*<br />*/}
-                {/*<div className="article">*/}
-                {/*    <Col className="ml-auto mr-auto" md="8">*/}
-                {/*        <Card className="card-blog card-plain text-center">*/}
-                {/*            <div className="card-image">*/}
-                {/*                <a href="views/ProfilePage#pablo" onClick={(e) => e.preventDefault()}>*/}
-                {/*                    <img*/}
-                {/*                        alt="..."*/}
-                {/*                        className="img img-raised"*/}
-                {/*                        src={require("assets/img/sections/leonard-cotte.jpg")}*/}
-                {/*                    />*/}
-                {/*                    <p className="image-thumb">Photo by Cam Adams</p>*/}
-                {/*                </a>*/}
-                {/*            </div>*/}
-                {/*            <CardBody>*/}
-                {/*                <div className="card-category">*/}
-                {/*                    <Badge className="main-tag" color="warning">*/}
-                {/*                        Trending*/}
-                {/*                    </Badge>*/}
-                {/*                </div>*/}
-                {/*                <a href="javascrip: void(0);">*/}
-                {/*                    <CardTitle tag="h3">*/}
-                {/*                        Make Somebody Nervous Before You Die*/}
-                {/*                    </CardTitle>*/}
-                {/*                    <h6 className="title-uppercase">October 20, 2016</h6>*/}
-                {/*                </a>*/}
-                {/*                <div className="card-description">*/}
-                {/*                    <p>*/}
-                {/*                        You won’t find many concepts that are very useful or*/}
-                {/*                        important if you insist on having a worldview that’s*/}
-                {/*                        void of controversy, invulnerable to criticism, and*/}
-                {/*                        incapable of making others feel confused...*/}
-                {/*                    </p>*/}
-                {/*                </div>*/}
-                {/*            </CardBody>*/}
-                {/*            <Button className="btn-round" color="danger" size="sm">*/}
-                {/*                Read more*/}
-                {/*            </Button>*/}
-                {/*        </Card>*/}
-                {/*    </Col>*/}
-                {/*</div>*/}
-                {/*<hr />*/}
-
             </Container>
-
-
-
-
-
-
-
           </Container>
         </div>
       </div>

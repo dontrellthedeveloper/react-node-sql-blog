@@ -43,11 +43,10 @@ function BlogPostHeader() {
             <Button
                 className="btn-round mr-1"
                 color="neutral"
-                href="https://www.youtube.com/watch?v=dQw4w9WgXcQ?ref=creativetim"
-                target="_blank"
+                type='button'
             >
               <i className="fa fa-play" />
-              Watch video
+              Top Post
             </Button>
             <Button
                 className="btn-round"

@@ -30,7 +30,6 @@ const App = () => {
 
     useEffect(() => {
         axios
-            // .get("http://localhost:3001/auth/auth", {
             .get("https://node-react-sql-blog-api.herokuapp.com/auth/auth", {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),

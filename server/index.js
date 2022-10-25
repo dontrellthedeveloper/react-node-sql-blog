@@ -46,11 +46,11 @@ app.use("/likes", likesRouter)
 
 
 const db = mysql.createPool({
-    user: 'b534135c81175f',
+    user: 'b4ce6239d76248',
     host: 'us-cdbr-east-06.cleardb.net',
-    password: 'e840b8bc',
+    password: 'e0aab952',
     // password: process.env.SQL_SERVER_DB_PASSWORD,
-    database: 'heroku_fbc838d0b4aaf12'
+    database: 'heroku_f19f4b01fcda7ac'
 })
 
 
@@ -91,11 +91,11 @@ app.use('/Images', express.static('./Images'))
 // db.sequelize
 //     .sync()
 //     .then(() => {
-//         const PORT = process.env.PORT || 3005;
-//         app.listen(PORT);
-//         // app.listen(process.env.PORT || 3001, () => {
-//         //     console.log("Server running on port 3001");
-//         // });
+//         // const PORT = process.env.PORT || 3005;
+//         // app.listen(PORT);
+//         app.listen(process.env.PORT || 3001, () => {
+//             console.log("Server running on port 3001");
+//         });
 //     })
 //     .catch((e) => {
 //         console.log(e)
